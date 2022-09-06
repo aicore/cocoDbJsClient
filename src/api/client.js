@@ -51,7 +51,7 @@ function _isInitialized() {
  * @param [args=null] - This is the query string parameters that you want to pass to the API.
  * @returns {Promise} A function that returns a promise on resolve promise to get response.
  */
-export async function get(apiEndPoint, args = null) {
+export async function httpGet(apiEndPoint, args = null) {
     if (!_isInitialized()) {
         throw new Error('Please call init before calling any api');
     }
@@ -73,6 +73,7 @@ export async function get(apiEndPoint, args = null) {
             }
         });
         const body = await response.text();
+        console.log(JSON.parse(body));
         return body ? JSON.parse(body) : {};
     } catch (e) {
         console.error(JSON.stringify(e));
@@ -86,7 +87,7 @@ export async function get(apiEndPoint, args = null) {
  * @param apiEndPoint - The api end point to be called.
  * @param [args=null] - This is the data that you want to send to the server.
  */
-export async function put(apiEndPoint, args = null) {
+export async function httpPut(apiEndPoint, args = null) {
     if (!_isInitialized()) {
         throw new Error('Please call init before calling any api');
     }
@@ -104,6 +105,7 @@ export async function put(apiEndPoint, args = null) {
             body: args ? JSON.stringify(args) : ''
         });
         const data = await response.json();
+        console.log(typeof data);
         console.log(data);
         return data;
 

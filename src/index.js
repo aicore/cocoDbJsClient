@@ -18,4 +18,16 @@
 
 // @INCLUDE_IN_API_DOCS
 
-export {init} from './api/client.js';
+export {
+    init,
+    hello,
+    put,
+    get,
+    getFromNonIndex,
+    update,
+    createIndex,
+    getFromIndex,
+    createTable,
+    deleteTable,
+    deleteDocument
+} from './api/api.js';
