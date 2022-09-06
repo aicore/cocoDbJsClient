@@ -18,31 +18,16 @@
 
 // @INCLUDE_IN_API_DOCS
 
-/**
- * Write your module docs here. tell something about this module in markdown.
- *
- * See https://github.com/aicore/template-nodejs/wiki/How-To-Write-Docs for more details on how to style docs.
- * ### Use markdown headings!
- * and markdown code!
- * ```
- * // usage within core:
- * const Metrics = require("utils/Metrics");
- *
- * // usage within default extensions:
- * const Metrics = brackets.getModule("utils/Metrics");
- * ```
- *
- * @module hello
- */
-
-/**
- * says hello world
- * @param name
- * @returns {string}
- * @type {function}
- */
-function helloWorld(name) {
-    return "Hello World " + name;
-}
-
-export default helloWorld;
+export {
+    init,
+    hello,
+    put,
+    get,
+    getFromNonIndex,
+    update,
+    createIndex,
+    getFromIndex,
+    createTable,
+    deleteTable,
+    deleteDocument
+} from './api/api.js';
