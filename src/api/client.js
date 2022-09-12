@@ -1,9 +1,10 @@
 import {isString} from "@aicore/libcommonutils";
 import {URL} from 'url';
-import fetch from 'node-fetch';
+import FETCH from "./FETCH.js";
 
 let _authKey = null;
 let _serviceEndPoint = null;
+const MIN_AUTH_KEY_LENGTH = 10;
 
 function _isValidUrl(url) {
     try {
@@ -27,7 +28,7 @@ export function init(serviceEndPoint, authKey) {
     if (!isString(serviceEndPoint) || !_isValidUrl(serviceEndPoint)) {
         throw new Error(('please provide valid url'));
     }
-    if (!isString(authKey)) {
+    if (!isString(authKey) || isString((authKey) && authKey.length < MIN_AUTH_KEY_LENGTH)) {
         throw new Error('please provide valid auth key');
     }
     _serviceEndPoint = serviceEndPoint;
@@ -65,7 +66,7 @@ export async function httpGet(apiEndPoint, args = null) {
             Object.keys(args).forEach(key => queryUrl.searchParams.append(key, args[key]));
         }
 
-        const response = await fetch(queryUrl.toString(), {
+        const response = await FETCH.httpFetch(queryUrl.toString(), {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ export async function httpPut(apiEndPoint, args = null) {
     }
     const putApiEndPoint = _serviceEndPoint + apiEndPoint;
     try {
-        const response = await fetch(putApiEndPoint, {
+        const response = await FETCH.httpFetch(putApiEndPoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
