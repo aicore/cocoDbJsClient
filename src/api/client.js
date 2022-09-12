@@ -115,3 +115,8 @@ export async function httpPut(apiEndPoint, args = null) {
         throw new Error(`error occurred while issuing get for url ${putApiEndPoint}`);
     }
 }
+export function close(){
+    _authKey = null;
+    _serviceEndPoint = null;
+
+}

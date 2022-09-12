@@ -1,5 +1,5 @@
 import {httpGet, httpPut, init} from "./client.js";
-import {isString, isObject, isBoolean} from "@aicore/libcommonutils";
+import {isString, isObject, isBoolean, isStringEmpty, isObjectEmpty} from "@aicore/libcommonutils";
 
 export {init} from './client.js';
 
@@ -17,7 +17,7 @@ export function hello() {
  * @returns A promise
  */
 export function createTable(tableName) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
     return httpPut('/createTable', {
@@ -32,10 +32,10 @@ export function createTable(tableName) {
  * @returns A promise
  */
 export function put(tableName, document) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (isObject(document)) {
+    if (!isObject(document)) {
         throw new Error('Please provide valid document');
 
     }
@@ -52,10 +52,10 @@ export function put(tableName, document) {
  * @returns A promise
  */
 export function deleteDocument(tableName, documentId) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (!isString(documentId)) {
+    if (isStringEmpty(documentId)) {
         throw new Error('Please provide valid documentId');
     }
     return httpPut('/deleteDocument', {
@@ -70,7 +70,7 @@ export function deleteDocument(tableName, documentId) {
  * @returns A function that takes a tableName as an argument and returns a promise.
  */
 export function deleteTable(tableName) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
     return httpPut('/deleteTable', {
@@ -88,13 +88,13 @@ export function deleteTable(tableName) {
  * @returns A promise
  */
 export function createIndex(tableName, jsonField, dataType, isUnique, isNotNull) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (!isString(jsonField)) {
+    if (isStringEmpty(jsonField)) {
         throw new Error('Please provide valid jsonField');
     }
-    if (!isString(dataType)) {
+    if (isStringEmpty(dataType)) {
         throw new Error('Please provide valid dataType');
     }
     return httpPut('/createIndex', {
@@ -114,10 +114,10 @@ export function createIndex(tableName, jsonField, dataType, isUnique, isNotNull)
  * @returns A promise
  */
 export function update(tableName, documentId, document) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (!isString(documentId)) {
+    if (isStringEmpty(documentId)) {
         throw new Error('Please provide valid documentId');
     }
     if (!isObject(document)) {
@@ -137,10 +137,10 @@ export function update(tableName, documentId, document) {
  * @returns A promise
  */
 export function getFromNonIndex(tableName, queryObject) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (!isObject(queryObject)) {
+    if (isObjectEmpty(queryObject)) {
         throw new Error('Please provide valid queryObject');
     }
     return httpPut('/getFromNonIndex', {
@@ -156,10 +156,10 @@ export function getFromNonIndex(tableName, queryObject) {
  * @returns A promise
  */
 export function getFromIndex(tableName, queryObject) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (!isObject(queryObject)) {
+    if (isObjectEmpty(queryObject)) {
         throw new Error('Please provide valid queryObject');
     }
     return httpPut('/getFromIndex', {
@@ -175,10 +175,10 @@ export function getFromIndex(tableName, queryObject) {
  * @returns A promise
  */
 export function get(tableName, documentId) {
-    if (!isString(tableName)) {
+    if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (!isString(documentId)) {
+    if (isStringEmpty(documentId)) {
         throw new Error('Please provide valid document id');
     }
     return httpGet('/get', {
@@ -186,9 +186,3 @@ export function get(tableName, documentId) {
         documentId: documentId
     });
 }
-
-const key = 'YWxhZGRpbjpvcGVuc2VzYW1l';
-
-init('http://localhost:5000', key);
-
-hello();

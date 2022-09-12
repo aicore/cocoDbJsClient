@@ -1,13 +1,16 @@
-/*global describe, it*/
+/*global describe, it,beforeEach*/
 import mockedFunctions from "../setupmocks.js";
 import * as chai from 'chai';
-import {httpGet, httpPut, init} from "../../../src/api/client.js";
+import {close, httpGet, httpPut, init} from "../../../src/api/client.js";
 import FETCH from "../../../src/api/FETCH.js";
 import {isObjectEmpty} from "@aicore/libcommonutils";
 
 let expect = chai.expect;
 
 describe('ut for ai', function () {
+    beforeEach(function () {
+        close();
+    });
     it('httpGet should fail if not initialized', async function () {
         let isExceptionOccurred = false;
         try {
@@ -80,6 +83,7 @@ describe('ut for ai', function () {
         };
         const resp = await httpGet('/', {});
         expect(isObjectEmpty(resp)).eql(true);
+        FETCH.httpFetch = savedMock;
     });
     it('should  handle exception', async function () {
         init('http://localhost', '123');
