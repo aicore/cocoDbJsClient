@@ -1,4 +1,4 @@
-import {httpGet, httpPut} from "./client.js";
+import {httpGet, httpPut, init} from "./client.js";
 import {isString, isObject, isBoolean} from "@aicore/libcommonutils";
 
 export {init} from './client.js';
@@ -186,3 +186,9 @@ export function get(tableName, documentId) {
         documentId: documentId
     });
 }
+
+const key = 'YWxhZGRpbjpvcGVuc2VzYW1l';
+
+init('http://localhost:5000', key);
+
+hello();
