@@ -18,22 +18,6 @@ Js client library to connect to coco db
   <img src="https://sonarcloud.io/api/project_badges/measure?project=aicore_cocoDbJsClient&metric=sqale_index" alt="Technical debt" />
 </a>
 
-# TODOs after template use
-
-## !!!Please see all issues in the generated repository as an issue will be generated tracking the fix of each of the below items.
-
-1. Update package.json with your app defaults
-2. Check Build actions on pull requests.
-3. create a home page in wiki by going to wiki link https://github.com/<your_org>/<your_repo>/wiki
-4. Goto github `repository` > `settings`> and uncheck `Allow merge commits`. this is usually automatically done by code
-   guardian bots in core.ai org. so you may just need to verify it.
-5. In sonar cloud, enable Automatic analysis from `Administration
-   Analysis Method` for the first time before a pull request is
-   raised: ![image](https://user-images.githubusercontent.com/5336369/148695840-65585d04-5e59-450b-8794-54ca3c62b9fe.png)
-6. Check codacy runs on pull requests, set codacy defaults. You may remove codacy if sonar cloud is only needed.
-7. Update the above Code Guardian badges; change all `id=aicore_template-nodejs-ts` to the sonar id of your project
-   fields. see this PR: https://github.com/aicore/libcache/pull/13
-
 # Commands available
 
 ## Building
