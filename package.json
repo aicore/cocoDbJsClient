@@ -1,5 +1,5 @@
 {
-  "name": "@aicore/cocoDbJsClient",
+  "name": "@aicore/coco_db_client",
   "version": "1.0.6",
   "description": "JS client for cocoDb",
   "main": "src/index.js",
