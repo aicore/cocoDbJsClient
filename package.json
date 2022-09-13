@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "type": "module",
   "keywords": [
-    "template",
+    "promise",
+    "db",
+    "mysql",
+    "rest",
     "nodejs",
     "unit",
     "testing",
@@ -37,14 +40,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aicore/template-nodejs.git"
+    "url": "git+https://github.com/aicore/cocoDbJsClient.git"
   },
-  "author": "Arun, core.ai",
+  "author": "Charly, core.ai",
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/aicore/template-nodejs/issues"
+    "url": "https://github.com/aicore/cocoDbJsClient/issues"
   },
-  "homepage": "https://github.com/aicore/template-nodejs#readme",
+  "homepage": "https://github.com/aicore/cocoDbJsClient#readme",
   "devDependencies": {
     "@commitlint/cli": "17.1.2",
     "@commitlint/config-conventional": "17.1.0",
