@@ -1,5 +1,5 @@
-import {httpGet, httpPut, init} from "./client.js";
-import {isString, isObject, isBoolean, isStringEmpty, isObjectEmpty} from "@aicore/libcommonutils";
+import {httpGet, httpPut} from "./client.js";
+import {isObject, isBoolean, isStringEmpty, isObjectEmpty} from "@aicore/libcommonutils";
 
 export {init} from './client.js';
 
