@@ -1,7 +1,7 @@
 {
-  "name": "@aicore/template-nodejs",
+  "name": "@aicore/cocoDbJsClient",
   "version": "1.0.6",
-  "description": "Template for nodejs with unit gulp build, test, coverage, code guardian, github and Other defaults",
+  "description": "JS client for cocoDb",
   "main": "src/index.js",
   "type": "module",
   "keywords": [
