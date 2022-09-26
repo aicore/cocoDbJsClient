@@ -29,5 +29,7 @@ export {
     getFromIndex,
     createTable,
     deleteTable,
-    deleteDocument
+    deleteDocument,
+    createDb,
+    deleteDb
 } from './api/api.js';
