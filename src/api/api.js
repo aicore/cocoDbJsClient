@@ -26,6 +26,36 @@ export function createTable(tableName) {
 }
 
 /**
+ * It creates a database with the name provided in the databaseName parameter
+ * @param{string} databaseName - The name of the database you want to create.
+ * @returns{Promise<boolean>} A promise
+ */
+export function createDb(databaseName) {
+    if (isStringEmpty(databaseName)) {
+        throw new Error('Please provide valid dataBaseName');
+    }
+    return httpPut('/createDb', {
+        databaseName: databaseName
+    });
+}
+
+
+/**
+ * It deletes the database with the given name
+ * @param{string} databaseName - The name of the database to be deleted.
+ * @returns{Promise<boolean>} A promise.
+ */
+export function deleteDb(databaseName) {
+    if (isStringEmpty(databaseName)) {
+        throw new Error('Please provide valid dataBaseName');
+    }
+    return httpPut('/deleteDb', {
+        databaseName: databaseName
+    });
+}
+
+
+/**
  * It takes a table name and a document as input and returns a promise
  * @param tableName - The name of the table you want to put the document in.
  * @param document - The document to be inserted.
