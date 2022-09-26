@@ -15,6 +15,7 @@ import {
 } from "../../../src/index.js";
 import {close} from "../../../src/api/client.js";
 import FETCH from "../../../src/api/FETCH.js";
+import {createDb, deleteDb} from "../../../src/api/api.js";
 
 let expect = chai.expect;
 
@@ -470,5 +471,67 @@ describe('ut for ai', function () {
         expect(isExceptionOccurred).eql(true);
     });
 
+    it('deleteDb should pass ', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await deleteDb('hello');
+        expect(resp.isSuccess).eql(true);
+        FETCH.httpFetch = savedMock;
+    });
+    it('deleteDb should  fail if table name is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await deleteDb('');
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid dataBaseName');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+    it('createDb should pass ', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await createDb('hello');
+        expect(resp.isSuccess).eql(true);
+        FETCH.httpFetch = savedMock;
+    });
+    it('createDv should  fail if table name is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await deleteDb('');
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid dataBaseName');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
 
 });
