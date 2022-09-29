@@ -101,7 +101,7 @@ It gets the document after scanning table
 ### Parameters
 
 *   `tableName`  The name of the table you want to query.
-*   `queryObject`  This is the object that you want to query.
+*   `queryObject`  This is the object that you want to query. (optional, default `{}`)
 
 Returns **any** A promise
 

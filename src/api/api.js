@@ -167,12 +167,9 @@ export function update(tableName, documentId, document) {
  * @param queryObject - This is the object that you want to query.
  * @returns A promise
  */
-export function getFromNonIndex(tableName, queryObject) {
+export function getFromNonIndex(tableName, queryObject = {}) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
-    }
-    if (isObjectEmpty(queryObject)) {
-        throw new Error('Please provide valid queryObject');
     }
     return httpPut('/getFromNonIndex', {
         tableName: tableName,
@@ -217,6 +214,7 @@ export function get(tableName, documentId) {
         documentId: documentId
     });
 }
+
 /**
  * MathAddResponse
  * @typedef{object} MathAddResponse
