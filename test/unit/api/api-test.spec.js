@@ -15,7 +15,7 @@ import {
 } from "../../../src/index.js";
 import {close} from "../../../src/api/client.js";
 import FETCH from "../../../src/api/FETCH.js";
-import {createDb, deleteDb} from "../../../src/api/api.js";
+import {createDb, deleteDb, mathAdd} from "../../../src/api/api.js";
 
 let expect = chai.expect;
 
@@ -523,13 +523,72 @@ describe('ut for ai', function () {
         expect(resp.isSuccess).eql(true);
         FETCH.httpFetch = savedMock;
     });
-    it('createDv should  fail if table name is empty', async function () {
+    it('createDb should  fail if table name is empty', async function () {
         let isExceptionOccurred = false;
         try {
-            await deleteDb('');
+            await createDb('');
         } catch (e) {
             isExceptionOccurred = true;
             expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid dataBaseName');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+
+    it('mathAdd should pass ', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await mathAdd('test.customer', '1', {
+            id: 1
+        });
+        expect(resp.isSuccess).eql(true);
+        FETCH.httpFetch = savedMock;
+    });
+    it('mathAdd should  fail if table name is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            const resp = await mathAdd('', '1', {
+                id: 1
+            });
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid table Name');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+    it('mathAdd should  fail if document Id is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            const resp = await mathAdd('test.hello', '', {
+                id: 1
+            });
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid document id');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+
+    it('mathAdd should  fail if jsonfield increments is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            const resp = await mathAdd('test.hello', '1', {});
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid increments');
         }
         expect(isExceptionOccurred).eql(true);
     });
