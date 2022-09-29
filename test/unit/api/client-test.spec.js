@@ -7,7 +7,7 @@ import {isObjectEmpty} from "@aicore/libcommonutils";
 
 let expect = chai.expect;
 
-describe('ut for ai', function () {
+describe('ut for http api', function () {
     beforeEach(function () {
         close();
     });
