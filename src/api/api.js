@@ -1,3 +1,4 @@
+// @INCLUDE_IN_API_DOCS
 import {httpGet, httpPut} from "./client.js";
 import {isObject, isBoolean, isStringEmpty, isObjectEmpty} from "@aicore/libcommonutils";
 
@@ -214,5 +215,37 @@ export function get(tableName, documentId) {
     return httpGet('/get', {
         tableName: tableName,
         documentId: documentId
+    });
+}
+/**
+ * MathAddResponse
+ * @typedef{object} MathAddResponse
+ * @property {boolean} isSuccess - true is api is executed successfully false otherwise.
+ * @property {string} [errorMessage] - This property detailed explanation of why call failed.
+ */
+
+
+/**
+ * This function will add the values of the fields in the jsonFieldsIncrements object to the corresponding fields in the
+ * document with the given documentId in the given table
+ * @param {string} tableName - The name of the table in which the document is present.
+ * @param {string} documentId - The document id of the document you want to update.
+ * @param {Object}jsonFieldsIncrements - This is a JSON object that contains the fields and their increments.
+ * @returns{Promise<MathAddResponse>} A promise
+ */
+export function mathAdd(tableName, documentId, jsonFieldsIncrements) {
+    if (isStringEmpty(tableName)) {
+        throw new Error('Please provide valid table Name');
+    }
+    if (isStringEmpty(documentId)) {
+        throw new Error('Please provide valid document id');
+    }
+    if (isObjectEmpty(jsonFieldsIncrements)) {
+        throw  new Error('Please provide valid increments');
+    }
+    return httpPut('/mathAdd', {
+        tableName: tableName,
+        documentId: documentId,
+        jsonFieldsIncrements: jsonFieldsIncrements
     });
 }
