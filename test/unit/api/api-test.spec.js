@@ -353,17 +353,6 @@ describe('ut for ai', function () {
     });
 
 
-    it('getFromNonIndex should  fail if query object is empty', async function () {
-        let isExceptionOccurred = false;
-        try {
-            await getFromNonIndex('customers', {});
-        } catch (e) {
-            isExceptionOccurred = true;
-            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid queryObject');
-        }
-        expect(isExceptionOccurred).eql(true);
-    });
-
     it('getFromIndex should pass ', async function () {
         const savedMock = FETCH.httpFetch;
         FETCH.httpFetch = function (_endPoint, _args) {
