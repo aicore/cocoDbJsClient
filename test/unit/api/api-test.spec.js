@@ -15,7 +15,7 @@ import {
 } from "../../../src/index.js";
 import {close} from "../../../src/api/client.js";
 import FETCH from "../../../src/api/FETCH.js";
-import {createDb, deleteDb, mathAdd} from "../../../src/api/api.js";
+import {createDb, deleteDb, mathAdd, query} from "../../../src/api/api.js";
 
 let expect = chai.expect;
 
@@ -580,6 +580,81 @@ describe('ut for ai', function () {
             expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid increments');
         }
         expect(isExceptionOccurred).eql(true);
+    });
+
+
+    it('query should pass ', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true,
+                            documents: [{
+                                hello: 'world'
+                            }]
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await query('test.customer', {hello: 'world'});
+        expect(resp.isSuccess).eql(true);
+        expect(resp.documents.length).eql(1);
+        expect(resp.documents[0].hello).eql('world');
+        FETCH.httpFetch = savedMock;
+    });
+    it('query should  fail if table name is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await query('', {hello: 'world'});
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid table Name');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+    it('query should  fail if queryString is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await query('hello.world', {});
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid query String');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+
+    it('query should pass if index specified', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true,
+                            documents: [{
+                                hello: 'world'
+                            }]
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await query('test.customer', {hello: 'world'},['hello']);
+        expect(resp.isSuccess).eql(true);
+        expect(resp.documents.length).eql(1);
+        expect(resp.documents[0].hello).eql('world');
+        FETCH.httpFetch = savedMock;
     });
 
 });
