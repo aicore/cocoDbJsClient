@@ -31,5 +31,6 @@ export {
     deleteTable,
     deleteDocument,
     createDb,
-    deleteDb
+    deleteDb,
+    query
 } from './api/api.js';
