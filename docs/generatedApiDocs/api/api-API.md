@@ -159,7 +159,7 @@ returns a promise that resolves to the result of the query
 ### Parameters
 
 *   `tableName` **[string][1]** The name of the table you want to query.
-*   `queryString` **[Object][4]** This is the query string that you want to execute.
+*   `queryString` **[string][1]** This is the query string that you want to execute.
 *   `useIndexForFields` **[Array][6]<[string][1]>** This is an array of fields that you want to use the index for. (optional, default `null`)
 
 Returns **any** A promise

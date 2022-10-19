@@ -603,7 +603,7 @@ describe('ut for ai', function () {
                 }
             };
         };
-        const resp = await query('test.customer', {hello: 'world'});
+        const resp = await query('test.customer', '$.hello = "world"');
         expect(resp.isSuccess).eql(true);
         expect(resp.documents.length).eql(1);
         expect(resp.documents[0].hello).eql('world');
@@ -612,7 +612,7 @@ describe('ut for ai', function () {
     it('query should  fail if table name is empty', async function () {
         let isExceptionOccurred = false;
         try {
-            await query('', {hello: 'world'});
+            await query('', '$.hello = world');
         } catch (e) {
             isExceptionOccurred = true;
             expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid table Name');
@@ -622,7 +622,7 @@ describe('ut for ai', function () {
     it('query should  fail if queryString is empty', async function () {
         let isExceptionOccurred = false;
         try {
-            await query('hello.world', {});
+            await query('hello.world', '');
         } catch (e) {
             isExceptionOccurred = true;
             expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid query String');
@@ -650,7 +650,7 @@ describe('ut for ai', function () {
                 }
             };
         };
-        const resp = await query('test.customer', {hello: 'world'},['hello']);
+        const resp = await query('test.customer', "$.hello =  'world'",['hello']);
         expect(resp.isSuccess).eql(true);
         expect(resp.documents.length).eql(1);
         expect(resp.documents[0].hello).eql('world');
