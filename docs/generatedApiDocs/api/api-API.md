@@ -151,6 +151,19 @@ document with the given documentId in the given table
 
 Returns **[Promise][2]<[MathAddResponse][5]>** A promise
 
+## query
+
+`query` is a function that takes in a table name, a query string, and an optional useIndexForFields parameter, and
+returns a promise that resolves to the result of the query
+
+### Parameters
+
+*   `tableName` **[string][1]** The name of the table you want to query.
+*   `queryString` **[Object][4]** This is the query string that you want to execute.
+*   `useIndexForFields` **[Array][6]<[string][1]>** This is an array of fields that you want to use the index for. (optional, default `null`)
+
+Returns **any** A promise
+
 [1]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
 [2]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
@@ -160,3 +173,5 @@ Returns **[Promise][2]<[MathAddResponse][5]>** A promise
 [4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 [5]: #mathaddresponse
+
+[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array

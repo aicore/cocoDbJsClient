@@ -247,3 +247,31 @@ export function mathAdd(tableName, documentId, jsonFieldsIncrements) {
         jsonFieldsIncrements: jsonFieldsIncrements
     });
 }
+
+/**
+ * `query` is a function that takes in a table name, a query string, and an optional useIndexForFields parameter, and
+ * returns a promise that resolves to the result of the query
+ * @param{string} tableName - The name of the table you want to query.
+ * @param {Object} queryString - This is the query string that you want to execute.
+ * @param {Array<string>}[useIndexForFields=null] - This is an array of fields that you want to use the index for.
+ * @returns A promise
+ */
+export function query(tableName, queryString, useIndexForFields = null) {
+    if (isStringEmpty(tableName)) {
+        throw new Error('Please provide valid table Name');
+    }
+    if (isObjectEmpty(queryString)) {
+        throw new Error('Please provide valid query String');
+    }
+    if (!useIndexForFields) {
+        return httpPut('/query', {
+            tableName: tableName,
+            queryString: queryString
+        });
+    }
+    return httpPut('/query', {
+        tableName: tableName,
+        queryString: queryString,
+        useIndexForFields: useIndexForFields
+    });
+}
