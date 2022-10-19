@@ -1,6 +1,7 @@
 // @INCLUDE_IN_API_DOCS
 import {httpGet, httpPut} from "./client.js";
 import {isObject, isBoolean, isStringEmpty, isObjectEmpty} from "@aicore/libcommonutils";
+import {isString} from "@aicore/libcommonutils/src/utils/common.js";
 
 export {init} from './client.js';
 
@@ -252,7 +253,7 @@ export function mathAdd(tableName, documentId, jsonFieldsIncrements) {
  * `query` is a function that takes in a table name, a query string, and an optional useIndexForFields parameter, and
  * returns a promise that resolves to the result of the query
  * @param{string} tableName - The name of the table you want to query.
- * @param {Object} queryString - This is the query string that you want to execute.
+ * @param {string} queryString - This is the query string that you want to execute.
  * @param {Array<string>}[useIndexForFields=null] - This is an array of fields that you want to use the index for.
  * @returns A promise
  */
@@ -260,7 +261,7 @@ export function query(tableName, queryString, useIndexForFields = null) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
-    if (isObjectEmpty(queryString)) {
+    if (!isString(queryString) || isStringEmpty(queryString)) {
         throw new Error('Please provide valid query String');
     }
     if (!useIndexForFields) {
