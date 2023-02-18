@@ -102,6 +102,12 @@ It gets the document after scanning table
 
 *   `tableName`  The name of the table you want to query.
 *   `queryObject`  This is the object that you want to query. (optional, default `{}`)
+*   `options` **[Object][4]** Optional parameter to add pagination. (optional, default `{}`)
+
+    *   `options.pageOffset` **[number][5]** specify which row to start retrieving documents from. Eg: to get 10 documents from
+        the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
+    *   `options.pageLimit` **[number][5]** specify number of documents to retrieve. Eg: to get 10 documents from
+        the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
 
 Returns **any** A promise
 
@@ -113,6 +119,12 @@ This function will return a promise that will resolve to an array of objects tha
 
 *   `tableName`  The name of the table you want to query.
 *   `queryObject`  This is the object that you want to query on.
+*   `options` **[Object][4]** Optional parameter to add pagination. (optional, default `{}`)
+
+    *   `options.pageOffset` **[number][5]** specify which row to start retrieving documents from. Eg: to get 10 documents from
+        the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
+    *   `options.pageLimit` **[number][5]** specify number of documents to retrieve. Eg: to get 10 documents from
+        the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
 
 Returns **any** A promise
 
@@ -149,7 +161,7 @@ document with the given documentId in the given table
 *   `documentId` **[string][1]** The document id of the document you want to update.
 *   `jsonFieldsIncrements` **[Object][4]** This is a JSON object that contains the fields and their increments.
 
-Returns **[Promise][2]<[MathAddResponse][5]>** A promise
+Returns **[Promise][2]<[MathAddResponse][6]>** A promise
 
 ## query
 
@@ -160,7 +172,13 @@ returns a promise that resolves to the result of the query
 
 *   `tableName` **[string][1]** The name of the table you want to query.
 *   `queryString` **[string][1]** This is the query string that you want to execute.
-*   `useIndexForFields` **[Array][6]<[string][1]>** This is an array of fields that you want to use the index for. (optional, default `null`)
+*   `useIndexForFields` **[Array][7]<[string][1]>** This is an array of fields that you want to use the index for. (optional, default `null`)
+*   `options` **[Object][4]** Optional parameter to add pagination. (optional, default `{}`)
+
+    *   `options.pageOffset` **[number][5]** specify which row to start retrieving documents from. Eg: to get 10 documents from
+        the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
+    *   `options.pageLimit` **[number][5]** specify number of documents to retrieve. Eg: to get 10 documents from
+        the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
 
 Returns **any** A promise
 
@@ -172,6 +190,8 @@ Returns **any** A promise
 
 [4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[5]: #mathaddresponse
+[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[6]: #mathaddresponse
+
+[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array

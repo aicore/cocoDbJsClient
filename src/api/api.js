@@ -166,15 +166,21 @@ export function update(tableName, documentId, document) {
  * It gets the document after scanning table
  * @param tableName - The name of the table you want to query.
  * @param queryObject - This is the object that you want to query.
+ * @param {Object} options Optional parameter to add pagination.
+ * @param {number} options.pageOffset specify which row to start retrieving documents from. Eg: to get 10 documents from
+ * the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
+ * @param {number} options.pageLimit specify number of documents to retrieve. Eg: to get 10 documents from
+ * the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
  * @returns A promise
  */
-export function getFromNonIndex(tableName, queryObject = {}) {
+export function getFromNonIndex(tableName, queryObject = {}, options = {}) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
     return httpPut('/getFromNonIndex', {
         tableName: tableName,
-        queryObject: queryObject
+        queryObject: queryObject,
+        options
     });
 }
 
@@ -182,9 +188,14 @@ export function getFromNonIndex(tableName, queryObject = {}) {
  * This function will return a promise that will resolve to an array of objects that match the queryObject
  * @param tableName - The name of the table you want to query.
  * @param queryObject - This is the object that you want to query on.
+ * @param {Object} options Optional parameter to add pagination.
+ * @param {number} options.pageOffset specify which row to start retrieving documents from. Eg: to get 10 documents from
+ * the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
+ * @param {number} options.pageLimit specify number of documents to retrieve. Eg: to get 10 documents from
+ * the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
  * @returns A promise
  */
-export function getFromIndex(tableName, queryObject) {
+export function getFromIndex(tableName, queryObject, options = {}) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
@@ -193,7 +204,8 @@ export function getFromIndex(tableName, queryObject) {
     }
     return httpPut('/getFromIndex', {
         tableName: tableName,
-        queryObject: queryObject
+        queryObject: queryObject,
+        options
     });
 }
 
@@ -255,9 +267,14 @@ export function mathAdd(tableName, documentId, jsonFieldsIncrements) {
  * @param{string} tableName - The name of the table you want to query.
  * @param {string} queryString - This is the query string that you want to execute.
  * @param {Array<string>}[useIndexForFields=null] - This is an array of fields that you want to use the index for.
+ * @param {Object} options Optional parameter to add pagination.
+ * @param {number} options.pageOffset specify which row to start retrieving documents from. Eg: to get 10 documents from
+ * the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
+ * @param {number} options.pageLimit specify number of documents to retrieve. Eg: to get 10 documents from
+ * the 100'th document, you should specify `pageOffset = 100` and `pageLimit = 10`
  * @returns A promise
  */
-export function query(tableName, queryString, useIndexForFields = null) {
+export function query(tableName, queryString, useIndexForFields = null, options ={}) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
@@ -267,12 +284,14 @@ export function query(tableName, queryString, useIndexForFields = null) {
     if (!useIndexForFields) {
         return httpPut('/query', {
             tableName: tableName,
-            queryString: queryString
+            queryString: queryString,
+            options
         });
     }
     return httpPut('/query', {
         tableName: tableName,
         queryString: queryString,
-        useIndexForFields: useIndexForFields
+        useIndexForFields: useIndexForFields,
+        options
     });
 }
