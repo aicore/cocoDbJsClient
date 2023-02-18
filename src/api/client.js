@@ -74,7 +74,6 @@ export async function httpGet(apiEndPoint, args = null) {
             }
         });
         const body = await response.text();
-        console.log(JSON.parse(body));
         return body ? JSON.parse(body) : {};
     } catch (e) {
         console.error(JSON.stringify(e));
@@ -105,10 +104,7 @@ export async function httpPut(apiEndPoint, args = null) {
             },
             body: args ? JSON.stringify(args) : ''
         });
-        const data = await response.json();
-        console.log(typeof data);
-        console.log(data);
-        return data;
+        return await response.json();
 
     } catch (e) {
         console.error(JSON.stringify(e));
