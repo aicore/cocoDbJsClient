@@ -143,9 +143,11 @@ export function createIndex(tableName, jsonField, dataType, isUnique, isNotNull)
  * @param tableName - The name of the table in which the document is to be updated.
  * @param documentId - The id of the document to be updated.
  * @param document - The document to be updated.
+ * @param {string} [condition] - Optional coco query condition of the form "$.cost<35" that must be satisfied
+ * for update to happen. See query API for more details on how to write coco query strings.
  * @returns A promise
  */
-export function update(tableName, documentId, document) {
+export function update(tableName, documentId, document, condition) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
@@ -158,7 +160,8 @@ export function update(tableName, documentId, document) {
     return httpPut('/update', {
         tableName: tableName,
         documentId: documentId,
-        document: document
+        document: document,
+        condition
     });
 }
 
