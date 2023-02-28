@@ -91,6 +91,8 @@ It updates a document in a table
 *   `tableName`  The name of the table in which the document is to be updated.
 *   `documentId`  The id of the document to be updated.
 *   `document`  The document to be updated.
+*   `condition` **[string][1]?** Optional coco query condition of the form "$.cost<35" that must be satisfied
+    for update to happen. See query API for more details on how to write coco query strings.
 
 Returns **any** A promise
 
