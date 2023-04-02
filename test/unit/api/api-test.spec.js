@@ -131,6 +131,27 @@ describe('ut for ai', function () {
         expect(resp.isSuccess).eql(true);
         FETCH.httpFetch = savedMock;
     });
+    it('deleteDocument with condition should pass ', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await deleteDocument('hello', '1234', "$.x<10");
+        expect(resp.isSuccess).eql(true);
+        FETCH.httpFetch = savedMock;
+    });
     it('deleteDocument should  fail if table name is empty', async function () {
         let isExceptionOccurred = false;
         try {

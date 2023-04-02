@@ -55,6 +55,8 @@ It deletes a document from a table
 
 *   `tableName`  The name of the table you want to delete the document from.
 *   `documentId`  The documentId of the document you want to delete.
+*   `condition` **[string][1]?** Optional coco query condition of the form "$.cost<35" that must be satisfied
+    for delete to happen. See query API for more details on how to write coco query strings.
 
 Returns **any** A promise
 
