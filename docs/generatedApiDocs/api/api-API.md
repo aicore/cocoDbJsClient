@@ -60,6 +60,18 @@ It deletes a document from a table
 
 Returns **any** A promise
 
+## deleteDocuments
+
+> This function deletes all documents satisfying query condition from a table
+
+### Parameters
+
+*   `tableName` **[string][1]** The name of the table in which the key is to be deleted.
+*   `queryString` **[string][1]** The cocDB query string.
+*   `useIndexForFields`   (optional, default `[]`)
+
+Returns **[Promise][2]** A promise.
+
 ## deleteTable
 
 It deletes a table from the database

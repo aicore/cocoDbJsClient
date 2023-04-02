@@ -6,6 +6,7 @@ import {
     createIndex,
     createTable,
     deleteDocument,
+    deleteDocuments,
     deleteTable, get,
     getFromIndex, getFromNonIndex,
     hello,
@@ -169,6 +170,69 @@ describe('ut for ai', function () {
         } catch (e) {
             isExceptionOccurred = true;
             expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid documentId');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+
+    it('deleteDocuments should pass ', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await deleteDocuments('hello', '1234');
+        expect(resp.isSuccess).eql(true);
+        FETCH.httpFetch = savedMock;
+    });
+    it('deleteDocuments with index should pass ', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return null;
+                },
+                json: function () {
+                    return new Promise(resolve => {
+                        resolve({
+                            isSuccess: true
+                        });
+                    });
+
+                }
+            };
+        };
+        const resp = await deleteDocuments('hello', 's<1234', ['s', 'x.y']);
+        expect(resp.isSuccess).eql(true);
+        FETCH.httpFetch = savedMock;
+    });
+    it('deleteDocuments should  fail if table name is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await deleteDocuments('', '1234');
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid table name');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+    it('deleteDocuments should  fail if  query  is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await deleteDocuments('customers', '');
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid queryString');
         }
         expect(isExceptionOccurred).eql(true);
     });

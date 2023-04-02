@@ -30,6 +30,7 @@ export {
     createTable,
     deleteTable,
     deleteDocument,
+    deleteDocuments,
     createDb,
     deleteDb,
     query
