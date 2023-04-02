@@ -100,6 +100,29 @@ export function deleteDocument(tableName, documentId, condition) {
 }
 
 /**
+ * > This function deletes all documents satisfying query condition from a table
+ * @param {string} tableName - The name of the table in which the key is to be deleted.
+ * @param {string} queryString - The cocDB query string.
+ * @param {Array[string]} useIndexForFields - List of indexed fields in the document.
+ * @returns {Promise} A promise.
+ */
+export function deleteDocuments(tableName, queryString, useIndexForFields = []) {
+    if (isStringEmpty(tableName)) {
+        throw new Error('Please provide valid table name');
+    }
+    if (isStringEmpty(queryString)) {
+        throw new Error('Please provide valid queryString');
+    }
+
+    return httpPut('/deleteDocuments', {
+        tableName,
+        queryString,
+        useIndexForFields
+    });
+}
+
+
+/**
  * It deletes a table from the database
  * @param tableName - The name of the table to be deleted.
  * @returns A function that takes a tableName as an argument and returns a promise.
