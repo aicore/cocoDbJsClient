@@ -81,9 +81,11 @@ export function put(tableName, document) {
  * It deletes a document from a table
  * @param tableName - The name of the table you want to delete the document from.
  * @param documentId - The documentId of the document you want to delete.
+ * @param {string} [condition] - Optional coco query condition of the form "$.cost<35" that must be satisfied
+ * for delete to happen. See query API for more details on how to write coco query strings.
  * @returns A promise
  */
-export function deleteDocument(tableName, documentId) {
+export function deleteDocument(tableName, documentId, condition) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
@@ -92,7 +94,8 @@ export function deleteDocument(tableName, documentId) {
     }
     return httpPut('/deleteDocument', {
         tableName: tableName,
-        documentId: documentId
+        documentId: documentId,
+        condition
     });
 }
 
