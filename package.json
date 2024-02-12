@@ -52,7 +52,7 @@
     "@commitlint/cli": "17.5.1",
     "@commitlint/config-conventional": "17.4.4",
     "c8": "7.13.0",
-    "chai": "4.3.7",
+    "chai": "5.1.0",
     "cli-color": "2.0.3",
     "documentation": "14.0.1",
     "eslint": "8.37.0",
