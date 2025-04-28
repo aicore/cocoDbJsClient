@@ -176,6 +176,8 @@ document with the given documentId in the given table
 *   `tableName` **[string][1]** The name of the table in which the document is present.
 *   `documentId` **[string][1]** The document id of the document you want to update.
 *   `jsonFieldsIncrements` **[Object][4]** This is a JSON object that contains the fields and their increments.
+*   `condition` **[string][1]?** Optional coco query condition of the form "$.cost<35" that must be satisfied
+    for update to happen. See query API for more details on how to write coco query strings.
 
 Returns **[Promise][2]<[MathAddResponse][6]>** A promise
 
