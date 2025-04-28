@@ -271,9 +271,11 @@ export function get(tableName, documentId) {
  * @param {string} tableName - The name of the table in which the document is present.
  * @param {string} documentId - The document id of the document you want to update.
  * @param {Object}jsonFieldsIncrements - This is a JSON object that contains the fields and their increments.
+ * @param {string} [condition] - Optional coco query condition of the form "$.cost<35" that must be satisfied
+ * for update to happen. See query API for more details on how to write coco query strings.
  * @returns{Promise<MathAddResponse>} A promise
  */
-export function mathAdd(tableName, documentId, jsonFieldsIncrements) {
+export function mathAdd(tableName, documentId, jsonFieldsIncrements, condition) {
     if (isStringEmpty(tableName)) {
         throw new Error('Please provide valid table Name');
     }
@@ -286,7 +288,8 @@ export function mathAdd(tableName, documentId, jsonFieldsIncrements) {
     return httpPut('/mathAdd', {
         tableName: tableName,
         documentId: documentId,
-        jsonFieldsIncrements: jsonFieldsIncrements
+        jsonFieldsIncrements: jsonFieldsIncrements,
+        condition: condition
     });
 }
 
