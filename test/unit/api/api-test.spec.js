@@ -16,7 +16,7 @@ import {
 } from "../../../src/index.js";
 import {close} from "../../../src/api/client.js";
 import FETCH from "../../../src/api/FETCH.js";
-import {createDb, deleteDb, mathAdd, query} from "../../../src/api/api.js";
+import {createDb, deleteDb, mathAdd, query, listDatabases, listTables, getTableIndexes} from "../../../src/api/api.js";
 
 let expect = chai.expect;
 
@@ -760,6 +760,89 @@ describe('ut for ai', function () {
         expect(resp.isSuccess).eql(true);
         expect(resp.documents.length).eql(1);
         expect(resp.documents[0].hello).eql('world');
+        FETCH.httpFetch = savedMock;
+    });
+
+    it('listDatabases should pass', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return JSON.stringify({
+                        isSuccess: true,
+                        databases: ['test', 'mysql']
+                    });
+                }
+            };
+        };
+        const resp = await listDatabases();
+        expect(resp.isSuccess).eql(true);
+        expect(resp.databases).to.include('test');
+        expect(resp.databases).to.include('mysql');
+        FETCH.httpFetch = savedMock;
+    });
+
+    it('listTables should fail if databaseName is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await listTables('');
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid databaseName');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+
+    it('listTables should pass', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return JSON.stringify({
+                        isSuccess: true,
+                        tables: ['customers', 'orders']
+                    });
+                }
+            };
+        };
+        const resp = await listTables('test');
+        expect(resp.isSuccess).eql(true);
+        expect(resp.tables).to.include('customers');
+        expect(resp.tables).to.include('orders');
+        FETCH.httpFetch = savedMock;
+    });
+
+    it('getTableIndexes should fail if tableName is empty', async function () {
+        let isExceptionOccurred = false;
+        try {
+            await getTableIndexes('');
+        } catch (e) {
+            isExceptionOccurred = true;
+            expect(e.toString().split('\n')[0].trim()).eql('Error: Please provide valid tableName');
+        }
+        expect(isExceptionOccurred).eql(true);
+    });
+
+    it('getTableIndexes should pass', async function () {
+        const savedMock = FETCH.httpFetch;
+        FETCH.httpFetch = function (_endPoint, _args) {
+            return {
+                text: function () {
+                    return JSON.stringify({
+                        isSuccess: true,
+                        indexes: [{
+                            indexName: 'PRIMARY',
+                            columnName: 'documentID',
+                            isPrimary: true
+                        }]
+                    });
+                }
+            };
+        };
+        const resp = await getTableIndexes('test.customers');
+        expect(resp.isSuccess).eql(true);
+        expect(resp.indexes.length).to.be.greaterThan(0);
+        expect(resp.indexes[0].indexName).eql('PRIMARY');
         FETCH.httpFetch = savedMock;
     });
 

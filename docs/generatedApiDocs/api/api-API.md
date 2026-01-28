@@ -200,6 +200,41 @@ returns a promise that resolves to the result of the query
 
 Returns **any** A promise
 
+## listDatabases
+
+Lists all databases on the MySQL server.
+
+### Examples
+
+Sample usage
+
+```javascript
+const response = await listDatabases();
+console.log(response.databases); // ['mysql', 'information_schema', 'mydb']
+```
+
+Returns **[Promise][2]<[Object][4]>** A promise resolving to {isSuccess: boolean, databases: string\[]}
+
+## listTables
+
+Lists all tables in a database.
+
+### Parameters
+
+*   `databaseName` **[string][1]** The name of the database
+
+Returns **[Promise][2]<[Object][4]>** A promise resolving to {isSuccess: boolean, tables: string\[]}
+
+## getTableIndexes
+
+Gets index information for a table.
+
+### Parameters
+
+*   `tableName` **[string][1]** The table name in database.tableName format
+
+Returns **[Promise][2]<[Object][4]>** A promise resolving to {isSuccess: boolean, indexes: IndexInfo\[]}
+
 [1]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
 [2]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
