@@ -33,5 +33,8 @@ export {
     deleteDocuments,
     createDb,
     deleteDb,
-    query
+    query,
+    listDatabases,
+    listTables,
+    getTableIndexes
 } from './api/api.js';
